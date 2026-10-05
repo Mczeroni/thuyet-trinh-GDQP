@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tác hại của ma túy và cách phòng tránh — Bài thuyết trình</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap');
+/* ============================================================
+   ĐIỀU CHỈNH NHANH: màu sắc & thông tin nằm trong :root và CONFIG
+   ============================================================ */
+:root{
+  --bg:#0b0d10;            /* đen than */
+  --bg-2:#12151a;
+  --panel:#161a21;
+  --panel-2:#1c222c;
+  --line:#2a3240;
+  --red:#e5484d;           /* đỏ cảnh báo */
+  --red-deep:#b3261e;
+  --amber:#ffb224;         /* vàng cảnh báo */
+  --white:#f5f7fa;
+  --muted:#9aa7b8;
+  --ok:#46a758;
+  --sans:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#000;color:var(--white);font-family:var(--sans)}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(1200px 800px at 70% -10%,rgba(229,72,77,.08),transparent 60%),radial-gradient(900px 700px at 0% 110%,rgba(255,178,36,.05),transparent 55%);pointer-events:none;z-index:0}
+
+/* ---------- STAGE 16:9 ---------- */
+#stage-wrap{position:fixed;inset:0;z-index:1}
+#stage{width:1920px;height:1080px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center;background:var(--bg);overflow:hidden;box-shadow:0 0 80px rgba(0,0,0,.6)}
+body.responsive #stage{left:0;top:0;width:100%;height:100%;transform:none!important;box-shadow:none}
+
+/* ---------- SLIDES ---------- */
+.slide{position:absolute;inset:0;padding:84px 110px 120px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateX(60px);transition:opacity .45s ease,transform .45s ease,visibility .45s;background:var(--bg)}
+.slide.prev{transform:translateX(-60px)}
+.slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
+.slide.active .rv{animation:rise .6s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--d,0)*90ms)}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .slide{transition:opacity .2s linear;transform:none}
+  .slide.active .rv{animation:none}
+  *{scroll-behavior:auto}
+}
+
+/* ---------- TYPE ---------- */
+.kicker{display:flex;align-items:center;gap:16px;font-size:24px;font-weight:600;letter-spacing:.24em;color:var(--red);text-transform:uppercase;margin-bottom:14px}
+.kicker::before{content:"";width:56px;height:4px;background:var(--red);border-radius:2px;flex:none}
+.kicker.green{color:var(--ok)}.kicker.green::before{background:var(--ok)}
+.badge-callout.green{background:rgba(70,167,88,.1);border-color:rgba(70,167,88,.5)}
+.badge-callout.green svg{stroke:var(--ok)}
+h1.title{font-size:58px;font-weight:800;line-height:1.12;letter-spacing:-.01em}
+h1.title em{font-style:normal;color:var(--red)}
+.subtitle{font-size:28px;color:var(--muted);margin-top:12px;line-height:1.5}
+.src{position:absolute;left:110px;right:110px;bottom:42px;display:flex;justify-content:space-between;gap:24px;font-size:17px;color:#66748a}
+
+/* ---------- COMPONENTS ---------- */
+.cards{display:grid;gap:26px}
+.cards.c4{grid-template-columns:repeat(4,1fr)}
+.cards.c2x2{grid-template-columns:1fr 1fr}
+.card{background:linear-gradient(180deg,var(--panel),rgba(22,26,33,.6));border:1px solid var(--line);border-left:5px solid var(--red);border-radius:14px;padding:26px 28px 24px;display:flex;flex-direction:column;gap:12px}
+.card .num{font-size:32px;font-weight:800;color:var(--red)}
+.card h3{font-size:28px;font-weight:700;line-height:1.25}
+.card p{font-size:22px;color:#d5e0ee;line-height:1.55}
+.card svg{width:44px;height:44px;stroke:var(--red)}
+.badge-callout{display:flex;align-items:center;gap:22px;background:rgba(229,72,77,.1);border:1px solid rgba(229,72,77,.45);border-radius:16px;padding:26px 34px}
+.badge-callout svg{width:52px;height:52px;stroke:var(--amber);flex:none}
+.badge-callout p{font-size:29px;font-weight:700;line-height:1.35}
+.flow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.flow .step{background:var(--panel-2);border:1px solid var(--line);border-radius:999px;padding:14px 26px;font-size:22px;font-weight:600}
+.flow .arr{color:var(--red);font-size:26px;font-weight:800}
+.imgblock{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.imgblock img{width:100%;height:100%;object-fit:cover;display:block}
+.imgblock figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 18px;font-size:16px;color:#cbd5e1;background:linear-gradient(transparent,rgba(0,0,0,.82))}
+.imgblock::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,8,10,.55));pointer-events:none}
+.imgblock.noimg{background:linear-gradient(135deg,#171c24,#10141a)}
+.pill-note{display:inline-flex;align-items:center;gap:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px 22px;font-size:21px;color:var(--muted);line-height:1.4}
+
+/* ---------- SLIDE 1 ---------- */
+.s1{justify-content:center}
+.s1 .bg{position:absolute;inset:0}
+.s1 .bg img{width:100%;height:100%;object-fit:cover;filter:saturate(.75) contrast(1.05)}
+.s1 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,10,13,.94) 0%,rgba(8,10,13,.82) 45%,rgba(8,10,13,.45) 100%)}
+.s1 .inner{position:relative;max-width:1150px}
+.s1 .tag{display:inline-flex;align-items:center;gap:14px;background:rgba(229,72,77,.16);border:1px solid rgba(229,72,77,.5);color:#ffb3b6;font-size:23px;font-weight:600;letter-spacing:.14em;padding:12px 26px;border-radius:999px;margin-bottom:32px;width:fit-content}
+.s1 .tag svg{width:26px;height:26px;stroke:currentColor;flex:none}
+.s1 h1{font-size:96px;font-weight:800;line-height:1.08;letter-spacing:-.015em}
+.s1 h1 .accent{color:var(--red)}
+.s1 .msg{margin-top:26px;font-size:28px;color:#d5dde8;line-height:1.5;max-width:900px;border-left:5px solid var(--amber);padding-left:24px}
+.s1 .meta{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap}
+.s1 .meta + .meta{margin-top:14px}
+.s1 .meta .pill{background:rgba(20,24,31,.85);border:1px solid var(--line);border-radius:12px;padding:10px 20px;font-size:21px;color:#c7d2df}
+.s1 .meta .pill b{color:var(--white)}
+
+/* ---------- VIDEO FACADE ---------- */
+.videobox{position:relative;background:#000;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.videobox .vp{position:relative;flex:1;display:grid;place-items:center;min-height:0}
+.videobox .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(.8)}
+.videobox .playbtn{position:relative;z-index:2;width:132px;height:132px;border-radius:50%;border:none;cursor:pointer;background:rgba(229,72,77,.95);display:grid;place-items:center;transition:transform .2s ease,background .2s ease;box-shadow:0 12px 40px rgba(229,72,77,.4)}
+.videobox .playbtn:hover{transform:scale(1.08);background:var(--red-deep)}
+.videobox .playbtn svg{width:56px;height:56px;fill:#fff;margin-left:8px}
+.videobox .playbtn:focus-visible{outline:4px solid var(--amber);outline-offset:4px}
+.videobox .vlabel{position:relative;z-index:2;margin-top:0;padding:20px 28px;background:rgba(10,12,15,.9);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.videobox .vlabel .t{font-size:23px;font-weight:600;line-height:1.35}
+.videobox .vlabel .links{display:flex;gap:12px;flex:none}
+.videobox iframe,.videobox video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.videobox .placeholder{position:relative;z-index:2;text-align:center;padding:0 60px;max-width:1100px}
+.videobox .placeholder .ic{width:96px;height:96px;stroke:var(--muted);margin:0 auto 22px}
+.videobox .placeholder h4{font-size:30px;font-weight:700;margin-bottom:12px}
+.videobox .placeholder p{font-size:22px;color:var(--muted);line-height:1.55}
+
+/* ---------- SLIDE 2: VIDEO THÀNH VIÊN TO TOÀN DIỆN ---------- */
+#slide-2{padding:28px 56px 36px}
+#slide-2 .slide2-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:10px;flex-wrap:wrap}
+#slide-2 h1.title{font-size:42px;line-height:1.15;margin:0}
+#slide-2 .subtitle{font-size:20px;color:var(--muted);margin:0;line-height:1.4}
+#slide-2 #video-intro-slot{flex:1;min-height:0;display:flex;flex-direction:column}
+#slide-2 .videobox{flex:1;min-height:0;border-radius:18px;border:1px solid var(--line);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+#slide-2 .videobox .vlabel{padding:10px 22px}
+#slide-2 .videobox .vlabel .t{font-size:19px}
+
+/* ---------- SLIDE 4: VIDEO TO TOÀN MÀN HÌNH ---------- */
+#slide-4{padding:28px 56px 36px}
+#slide-4 .slide4-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:10px;flex-wrap:wrap}
+#slide-4 h1.title{font-size:42px;line-height:1.15;margin:0}
+#slide-4 .subtitle{font-size:20px;color:var(--muted);margin:0;line-height:1.4}
+#slide-4 #video-fact-slot{flex:1;min-height:0;display:flex;flex-direction:column}
+#slide-4 .videobox{flex:1;min-height:0;border-radius:18px;border:1px solid var(--line);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+#slide-4 .videobox .vlabel{padding:10px 22px}
+#slide-4 .videobox .vlabel .t{font-size:19px}
+
+/* ---------- SLIDES 5, 6, 7, 8: BỐ CỤC CHUẨN ĐẦY ĐỦ 16:9 ---------- */
+#slide-5, #slide-6, #slide-7, #slide-8{padding:42px 90px 118px}
+#slide-5 .split, #slide-6 .split, #slide-8 .split{gap:40px;margin-top:16px}
+
+#slide-5 .cards{gap:20px}
+#slide-5 .card{padding:22px 26px 20px;gap:8px}
+#slide-5 .card h3{font-size:27px}
+#slide-5 .card p{font-size:21px;line-height:1.5;color:#d5e0ee}
+#slide-5 .card .num{font-size:30px}
+#slide-5 .badge-callout{padding:20px 28px}
+#slide-5 .badge-callout p{font-size:26px}
+
+#slide-6 .cards{gap:18px}
+#slide-6 .card{padding:20px 24px 18px;gap:8px}
+#slide-6 .card h3{font-size:26px}
+#slide-6 .card p{font-size:20.5px;line-height:1.48;color:#d5e0ee}
+#slide-6 .card .num{font-size:28px}
+#slide-6 .chain{gap:8px;margin-top:16px}
+#slide-6 .chain .step{padding:10px 24px;font-size:20px}
+#slide-6 .badge-callout{padding:16px 26px}
+#slide-6 .badge-callout p{font-size:24px}
+
+#slide-7 .cards{gap:16px}
+#slide-7 .card{padding:18px 24px 16px;gap:6px}
+#slide-7 .card h3{font-size:25px}
+#slide-7 .card p{font-size:20px;line-height:1.45;color:#d5e0ee}
+#slide-7 .card .num{font-size:28px}
+#slide-7 .chain{margin-top:14px;gap:10px}
+#slide-7 .chain .step{padding:9px 18px;font-size:19px}
+#slide-7 .bigstat{gap:24px;margin-top:0}
+#slide-7 .bigstat .st{padding:18px 24px;min-width:260px}
+#slide-7 .bigstat .st b{font-size:46px}
+#slide-7 .bigstat .st span{font-size:18px}
+
+#slide-8 .split{gap:32px;margin-top:14px}
+#slide-8 .card{padding:12px 20px;gap:16px;min-height:0}
+#slide-8 .card h3{font-size:23px}
+#slide-8 .card p{font-size:18px;line-height:1.4;color:#d5e0ee}
+#slide-8 .card .num{font-size:26px}
+#slide-8 .flow{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap}
+#slide-8 .flow .step{padding:9px 14px;font-size:16px;font-weight:700;white-space:nowrap;letter-spacing:.02em}
+#slide-8 .flow .arr{font-size:18px;font-weight:800;color:var(--red);flex:none}
+#slide-8 .badge-callout{padding:18px 26px}
+#slide-8 .badge-callout p{font-size:25px}
+
+/* ---------- TOC ---------- */
+.toc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
+.toc-card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px 24px;display:flex;flex-direction:column;gap:14px;min-height:330px;transition:transform .25s ease,border-color .25s ease}
+.toc-card:hover{transform:translateY(-6px);border-color:var(--red)}
+.toc-card .n{font-size:56px;font-weight:800;color:transparent;-webkit-text-stroke:2px var(--red)}
+.toc-card svg{width:46px;height:46px;stroke:var(--amber)}
+.toc-card h3{font-size:25px;font-weight:700;line-height:1.3}
+.forms{display:grid;grid-template-columns:1.28fr .72fr;gap:24px;margin-top:26px;align-items:stretch}
+.form-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.form-photos .imgblock{height:186px}
+.form-photos figcaption{font-size:15px;padding:9px 12px}
+.defbox{margin-top:0;background:var(--panel-2);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:14px;padding:24px 32px;font-size:24px;line-height:1.55;color:#d9e1ec;max-width:1620px}
+
+/* ---------- SPLIT LAYOUTS ---------- */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;flex:1;min-height:0;align-items:stretch}
+.split.rev{grid-template-columns:.95fr 1.05fr}
+.s5grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;flex:1;min-height:0}
+.s5grid .card{min-height:0}
+.chain{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:26px}
+.chain .step{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 30px;font-size:22px;font-weight:600}
+.chain .down{color:var(--red);font-size:24px;font-weight:800}
+.bigstat{display:flex;gap:40px;margin-top:30px}
+.bigstat .st{background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--red);border-radius:14px;padding:22px 30px;min-width:300px}
+.bigstat .st b{display:block;font-size:52px;font-weight:800;color:var(--red)}
+.bigstat .st span{font-size:19px;color:var(--muted);line-height:1.35;display:block;margin-top:6px}
+
+/* ---------- S9 CONTRAST ---------- */
+.s9wrap{display:grid;grid-template-columns:1fr 1fr;gap:34px;flex:1;min-height:0}
+.s9side{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);padding:44px;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;min-height:0}
+.s9side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.s9side.dark img{filter:grayscale(.7) brightness(.5)}
+.s9side.hope img{filter:brightness(.75) saturate(1.05)}
+.s9side .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,13,.25),rgba(8,10,13,.9))}
+.s9side.dark .ov{background:linear-gradient(180deg,rgba(20,6,7,.35),rgba(20,6,7,.92));box-shadow:inset 0 0 0 3px rgba(229,72,77,.5)}
+.s9side.hope .ov{box-shadow:inset 0 0 0 3px rgba(70,167,88,.5)}
+.s9side .inner{position:relative}
+.s9side h3{font-size:34px;font-weight:800}
+.s9side ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.s9side li{font-size:22px;color:#dbe3ee;display:flex;gap:12px;line-height:1.4}
+.s9side.dark li::before{content:"✕";color:var(--red);font-weight:800}
+.s9side.hope li::before{content:"✓";color:var(--ok);font-weight:800}
+.s9msg{margin-top:30px;text-align:center}
+.s9msg .m1{font-size:46px;font-weight:800;line-height:1.25}
+.s9msg .m1 b{color:var(--red)}
+.s9msg .m2{font-size:24px;color:var(--muted);margin-top:10px}
+
+/* ---------- S10 ---------- */
+.s10{justify-content:center;align-items:center;text-align:center}
+.s10 .bg{position:absolute;inset:0}
+.s10 .bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.42) saturate(.85)}
+.s10 .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(1000px 600px at 50% 45%,rgba(11,13,16,.55),rgba(11,13,16,.95))}
+.s10 .inner{position:relative;max-width:1400px;display:flex;flex-direction:column;align-items:center;gap:26px}
+.s10 h1{font-size:76px;font-weight:800;line-height:1.15}
+.s10 .sub{font-size:30px;color:#d3dbe6;line-height:1.5}
+.s10 .team{font-size:24px;color:var(--muted)}
+.s10 .ready{display:inline-flex;gap:14px;align-items:center;background:rgba(229,72,77,.14);border:1px solid rgba(229,72,77,.5);color:#ffb9bc;font-size:23px;font-weight:600;padding:14px 30px;border-radius:999px}
+.s10 .ready svg{width:26px;height:26px;stroke:currentColor;flex:none}
+.s10 .btns{display:flex;gap:18px;margin-top:10px}
+.btn{cursor:pointer;font-family:inherit;font-size:22px;font-weight:700;border-radius:12px;padding:16px 34px;border:1px solid var(--line);background:var(--panel-2);color:var(--white);transition:background .2s,border-color .2s,transform .15s}
+.btn:hover{background:#232b37;border-color:#3a4656}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.btn.primary{background:var(--red);border-color:var(--red)}
+.btn.primary:hover{background:var(--red-deep)}
+
+/* ---------- UI CHROME ---------- */
+#progress{position:fixed;top:0;left:0;height:5px;width:0;background:linear-gradient(90deg,var(--red-deep),var(--red),var(--amber));z-index:60;transition:width .35s ease}
+#hud{position:fixed;right:28px;bottom:20px;display:flex;align-items:center;gap:8px;z-index:60;background:rgba(13,16,20,.85);border:1px solid var(--line);padding:6px 8px;border-radius:14px;backdrop-filter:blur(8px)}
+#counter{font-size:19px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;padding:4px 12px}
+#counter b{color:var(--white)}
+.navbtn{width:42px;height:42px;border-radius:10px;border:1px solid transparent;background:rgba(255,255,255,.07);color:var(--white);cursor:pointer;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.navbtn:hover{background:#232b37;border-color:#3a4656}
+.navbtn:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.navbtn svg{width:22px;height:22px;stroke:currentColor}
+#hint{display:none}
+
+/* ---------- OVERVIEW ---------- */
+#overview{position:fixed;inset:0;background:rgba(5,7,9,.96);z-index:80;display:none;padding:60px 80px;overflow:auto}
+#overview.open{display:block}
+#overview h2{font-size:40px;margin-bottom:30px}
+#overview .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:22px}
+#overview .cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;cursor:pointer;text-align:left;color:var(--white);font-family:inherit;transition:border-color .2s,transform .2s;min-height:150px}
+#overview .cell:hover{border-color:var(--red);transform:translateY(-4px)}
+#overview .cell .n{font-size:26px;font-weight:800;color:var(--red)}
+#overview .cell .t{font-size:19px;margin-top:8px;line-height:1.35;font-weight:600}
+
+/* ---------- SOURCES MODAL ---------- */
+#sources{position:fixed;inset:0;background:rgba(5,7,9,.92);z-index:90;display:none;place-items:center;padding:40px}
+#sources.open{display:grid}
+#sources .box{max-width:1100px;max-height:82vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:44px 52px}
+#sources h2{font-size:34px;margin-bottom:20px}
+#sources h3{font-size:22px;color:var(--amber);margin:22px 0 10px}
+#sources li{font-size:19px;color:#c6d0dd;line-height:1.55;margin-bottom:8px}
+#sources a{color:#8ab4ff}
+#sources .closeline{margin-top:28px;text-align:right}
+
+/* ---------- RESPONSIVE MODE (mobile / portrait) ---------- */
+body.responsive #stage{overflow-y:auto;overflow-x:hidden}
+body.responsive .slide{position:relative;inset:auto;opacity:1;visibility:visible;transform:none;display:none;padding:40px 26px 90px;min-height:100%}
+body.responsive .slide.active{display:flex}
+body.responsive .src{position:static;flex-direction:column;gap:6px;margin-top:30px}
+body.responsive #hint{display:none}
+@media (max-width:900px){
+  body.responsive h1.title{font-size:34px}
+  body.responsive .cards.c4,body.responsive .cards.c2x2,body.responsive .toc-grid{grid-template-columns:1fr 1fr}
+  body.responsive .split,body.responsive .split.rev,body.responsive .s9wrap{grid-template-columns:1fr}
+  body.responsive .s1 h1{font-size:44px}
+  body.responsive .videobox .placeholder p{font-size:17px}
+  body.responsive #overview .grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  body.responsive .cards.c4,body.responsive .toc-grid{grid-template-columns:1fr}
+  body.responsive .card h3{font-size:20px}body.responsive .card p{font-size:17px}
+}
+body.responsive .forms{grid-template-columns:1fr}
+body.responsive .form-photos .imgblock{height:140px}
+</style>
+</head>
+<body>
+<div id="progress" role="progressbar" aria-label="Tiến trình bài thuyết trình"></div>
+
+<div id="stage-wrap"><main id="stage" aria-live="polite">
+
+<!-- ============ SLIDE 1 — MỞ ĐẦU ============ -->
+<section class="slide s1" id="slide-1" aria-label="Slide 1">
+  <div class="bg rv" style="--d:0"><img src="hero-seizure.jpg" alt="Tang vật ma túy được cơ quan chức năng thu giữ" onerror="this.style.display='none'"></div>
+  <div class="inner">
+    <div class="tag rv" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H12z"/></svg>BÀI THUYẾT TRÌNH GIÁO DỤC QUỐC PHÒNG &amp; AN NINH</div>
+    <h1 class="rv" style="--d:2">TÁC HẠI CỦA <span class="accent">MA TÚY</span><br>VÀ CÁCH PHÒNG TRÁNH</h1>
+    <p class="msg rv" style="--d:3">“Ma túy không chỉ hủy hoại một cuộc đời, mà còn ảnh hưởng đến cả gia đình và xã hội.”</p>
+    <!-- ✏️ SỬA THÔNG TIN NHÓM TẠI CONFIG ở cuối file -->
+    <div class="meta rv" style="--d:4">
+      <span class="pill">Trường: <b data-cfg="school"></b></span>
+      <span class="pill">Lớp: <b data-cfg="cls"></b></span>
+      <span class="pill">Nhóm: <b data-cfg="group"></b></span>
+      <span class="pill">GV hướng dẫn: <b data-cfg="teacher"></b></span>
+    </div>
+  </div>
+  <div class="src"><span>Ảnh: tang vật ma túy thu giữ — U.S. CBP (phạm vi công cộng) / Wikimedia Commons</span><span>01 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 2 — VIDEO GIỚI THIỆU THÀNH VIÊN ============ -->
+<section class="slide" id="slide-2" aria-label="Slide 2">
+  <div class="slide2-head rv" style="--d:0">
+    <h1 class="title">GẶP GỠ <em>NHÓM THUYẾT TRÌNH</em></h1>
+    <p class="subtitle">Video giới thiệu các thành viên nhóm trước khi bắt đầu bài thuyết trình.</p>
+  </div>
+  <div id="video-intro-slot" class="rv" style="--d:1"></div>
+  <div class="src"><span>Video giới thiệu thành viên nhóm</span><span>02 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 3 — MỤC LỤC ============ -->
+<section class="slide" id="slide-3" aria-label="Slide 3">
+  <div class="kicker rv" style="--d:0">Nội dung chính</div>
+  <h1 class="title rv" style="--d:1">CHÚNG TA SẼ TÌM HIỂU NHỮNG GÌ?</h1>
+  <div class="toc-grid rv" style="--d:2;margin-top:32px">
+    <div class="toc-card"><span class="n">01</span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 8v8M8 12h8"/></svg><h3>Ma túy là gì?</h3></div>
+    <div class="toc-card"><span class="n">02</span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></svg><h3>Tác hại đối với sức khỏe bản thân</h3></div>
+    <div class="toc-card"><span class="n">03</span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M3 10 12 3l9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><h3>Tác hại với gia đình &amp; xã hội</h3></div>
+    <div class="toc-card"><span class="n">04</span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><h3>Cách phòng tránh ma túy</h3></div>
+    <div class="toc-card"><span class="n">05</span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v4m0 12v4M2 12h4m12 0h4M5 5l3 3m8 8 3 3m0-14-3 3M8 16l-3 3"/></svg><h3>Kết luận &amp; thông điệp</h3></div>
+  </div>
+  <div class="forms rv" style="--d:4">
+    <div class="defbox"><b style="color:var(--amber)">Định nghĩa:</b> Ma túy là các chất gây nghiện, chất hướng thần thuộc danh mục do Chính phủ quy định, có thể làm thay đổi hoạt động của hệ thần kinh và hành vi con người. <span style="color:var(--muted);font-size:19px">(Luật Phòng, chống ma túy 2021 — Điều 2)</span></div>
+    <div class="form-photos">
+      <figure class="imgblock"><img src="meth-powder.jpg" alt="Bột ma túy đá (methamphetamine)" onerror="this.closest('.imgblock').classList.add('noimg');this.remove()"><figcaption>Ma túy đá — dạng bột</figcaption></figure>
+      <figure class="imgblock"><img src="mdma-pills.jpg" alt="Viên thuốc MDMA (thuốc lắc)" onerror="this.closest('.imgblock').classList.add('noimg');this.remove()"><figcaption>Thuốc lắc (MDMA) — dạng viên</figcaption></figure>
+      <figure class="imgblock"><img src="heroin-kit.jpg" alt="Bộ dụng cụ sử dụng opioid" onerror="this.closest('.imgblock').classList.add('noimg');this.remove()"><figcaption>Dụng cụ sử dụng opioid</figcaption></figure>
+    </div>
+  </div>
+  <div class="src"><span>Định nghĩa: Luật Phòng, chống ma túy 2021 (số 73/2021/QH14). Ảnh: DEA (công cộng); D. Milton Trott CC BY 2.0; M. T. Rader CC BY-SA 4.0 — Wikimedia Commons</span><span>03 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 4 — VIDEO THỰC TẾ ============ -->
+<section class="slide" id="slide-4" aria-label="Slide 4">
+  <div class="slide4-head rv" style="--d:0">
+    <h1 class="title">SỰ THẬT ĐẰNG SAU <em>MA TÚY</em></h1>
+    <p class="subtitle">“Đừng chỉ nghe kể — hãy nhìn vào những hậu quả thực tế.”</p>
+  </div>
+  <div id="video-fact-slot" class="rv" style="--d:1"></div>
+</section>
+
+<!-- ============ SLIDE 5 — SỨC KHỎE ============ -->
+<section class="slide" id="slide-5" aria-label="Slide 5">
+  <div class="kicker rv" style="--d:0">Tác hại — Sức khỏe</div>
+  <h1 class="title rv" style="--d:1">MA TÚY TÀN PHÁ CƠ THỂ NHƯ THẾ NÀO?</h1>
+  <div class="split" style="margin-top:20px">
+    <div class="cards c2x2 rv" style="--d:2">
+      <div class="card"><span class="num">01</span><h3>Não bộ &amp; thần kinh</h3><p>Tổn thương cấu trúc vỏ não và thụ thể dopamine. Gây suy giảm trí nhớ trầm trọng, mất kiểm soát hành vi, ảo giác hoang tưởng và dẫn đến nghiện ngập mãn tính khó đảo ngược.</p></div>
+      <div class="card"><span class="num">02</span><h3>Hệ thống tim mạch</h3><p>Kích thích co thắt mạch vành đột ngột, làm nhịp tim đập nhanh bất thường và huyết áp tăng vọt. Dẫn đến nguy cơ cao bị loạn nhịp tim, nhồi máu cơ tim cấp và đột quỵ tử vong.</p></div>
+      <div class="card"><span class="num">03</span><h3>Hô hấp &amp; nội tạng</h3><p>Ức chế trung tâm hô hấp ở thân não gây ngạt thở, suy hô hấp cấp tính và tử vong khi quá liều. Đồng thời phá hủy tế bào gan, suy giảm chức năng thận và làm suy kiệt hệ miễn dịch.</p></div>
+      <div class="card"><span class="num">04</span><h3>Tâm lý &amp; tương lai</h3><p>Gây trầm cảm sâu sắc, lo âu tột độ, rối loạn cảm xúc và xuất hiện ý định tự hủy hoại bản thân. Người sử dụng đánh mất toàn bộ động lực học tập, sa sút phong độ lao động và mất hết tương lai.</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px;min-height:0">
+      <figure class="imgblock rv" style="--d:3;flex:1;min-height:0">
+        <img src="fentanyl-lethal.jpg" alt="Liều fentanyl 2 mg cạnh đồng xu — liều gây chết người theo DEA" onerror="this.closest('.imgblock').classList.add('noimg');this.remove()">
+        <figcaption>Ảnh tư liệu: chỉ 2 mg fentanyl — liều gây tử vong ở đa số người (DEA Hoa Kỳ)</figcaption>
+      </figure>
+      <div class="badge-callout rv" style="--d:4">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+        <p>“Không có sự an toàn tuyệt đối khi sử dụng ma túy trái phép.”<br><span style="font-size:19px;color:var(--muted);font-weight:400">Tác hại khác nhau tùy chất, liều lượng, cách sử dụng và tình trạng sức khỏe.</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>Nguồn: MedlinePlus (NIH); báo cáo nhóm tổng hợp — mục “Tác động sức khỏe”</span><span>05 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 6 — GIA ĐÌNH ============ -->
+<section class="slide" id="slide-6" aria-label="Slide 6">
+  <div class="kicker rv" style="--d:0">Tác hại — Gia đình</div>
+  <h1 class="title rv" style="--d:1">KHI MA TÚY BƯỚC VÀO GIA ĐÌNH</h1>
+  <div class="split rev" style="margin-top:20px">
+    <div style="display:flex;flex-direction:column;gap:18px;min-height:0">
+      <figure class="imgblock rv" style="--d:2;flex:1;min-height:0">
+        <img src="family-worry.jpg" alt="Ánh mắt lo lắng của người mẹ (ảnh mang tính minh họa)" onerror="this.closest('.imgblock').classList.add('noimg');this.remove()">
+        <figcaption>Ảnh minh họa nỗi lo lắng của người thân (không phải sự kiện có thật) — Kinitrupti, CC BY-SA 4.0</figcaption>
+      </figure>
+      <div class="chain rv" style="--d:4;margin-top:0">
+        <div class="step">MA TÚY</div><div class="down">▼</div>
+        <div class="step">KHÓ KHĂN KINH TẾ</div><div class="down">▼</div>
+        <div class="step">MÂU THUẪN</div><div class="down">▼</div>
+        <div class="step" style="border-color:var(--red);color:#ffb9bc">RẠN NỨT GIA ĐÌNH</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0">
+      <div class="cards c2x2">
+        <div class="card rv" style="--d:2"><span class="num">01</span><h3>Kinh tế kiệt quệ</h3><p>Chi tiêu cho ma túy nhanh chóng bào mòn toàn bộ của cải tích cóp và thu nhập gia đình. Dẫn đến cảnh nợ nần chồng chất, túng quẫn tài chính triền miên và mất khả năng chi trả sinh hoạt.</p></div>
+        <div class="card rv" style="--d:3"><span class="num">02</span><h3>Tình cảm rạn nứt</h3><p>Những lời dối trá và hành vi trộm cắp vặt phá vỡ hoàn toàn lòng tin giữa các thành viên. Bầu không khí gia đình luôn ngột ngạt, thường xuyên xảy ra cãi vã, xung đột gay gắt và ly tán.</p></div>
+        <div class="card rv" style="--d:4"><span class="num">03</span><h3>Tinh thần suy sụp</h3><p>Người thân phải gánh chịu nỗi đau đớn, tủi hổ với xã hội và bất an sợ hãi thường trực. Sang chấn tâm lý kéo dài khiến cha mẹ dễ rơi vào tình trạng suy nhược thần kinh và trầm cảm nặng.</p></div>
+        <div class="card rv" style="--d:5"><span class="num">04</span><h3>Tương lai con trẻ</h3><p>Con cái thiếu vắng sự chăm sóc, nuôi dưỡng chu đáo và định hướng học tập từ cha mẹ. Trẻ dễ mang tâm lý mặc cảm, bị bạn bè xa lánh, chấn thương tinh thần sâu sắc và tăng nguy cơ bỏ học.</p></div>
+      </div>
+      <div class="badge-callout rv" style="--d:6">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+        <p>“Một quyết định sai lầm có thể khiến nhiều người phải chịu tổn thương.”</p>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>Nguồn: báo cáo nhóm — mục “Sự bào mòn kinh tế và đổ vỡ cấu trúc gia đình”</span><span>06 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 7 — XÃ HỘI ============ -->
+<section class="slide" id="slide-7" aria-label="Slide 7">
+  <div class="kicker rv" style="--d:0">Tác hại — Xã hội</div>
+  <h1 class="title rv" style="--d:1">MA TÚY — MỐI NGUY ĐỐI VỚI CỘNG ĐỒNG</h1>
+  <div style="display:flex;gap:34px;margin-top:20px;flex:1;min-height:0">
+    <div style="flex:1.35;display:flex;flex-direction:column;gap:14px;min-height:0">
+      <div class="cards c2x2">
+        <div class="card rv" style="--d:1"><span class="num">01</span><h3>An ninh trật tự</h3><p>Để có tiền thỏa mãn cơn nghiện, nhiều đối tượng trộm cắp, cướp giật, lừa đảo, thậm chí gây án nghiêm trọng. Tội phạm ma túy đe dọa trực tiếp sự bình yên của xã hội.</p></div>
+        <div class="card rv" style="--d:2"><span class="num">02</span><h3>Lao động &amp; việc làm</h3><p>Ma túy tấn công nhóm tuổi thanh thiếu niên sung sức nhất, làm xói mòn nguồn nhân lực quốc gia. Người nghiện suy giảm thể lực, giảm khả năng học tập, lao động và tăng thất nghiệp.</p></div>
+        <div class="card rv" style="--d:3"><span class="num">03</span><h3>Gánh nặng kinh tế</h3><p>Tiêu tốn hàng ngàn tỷ đồng ngân sách quốc gia mỗi năm cho hệ thống y tế điều trị cai nghiện, cùng lực lượng chuyên trách trấn áp, điều tra và xét xử tội phạm ma túy.</p></div>
+        <div class="card rv" style="--d:4"><span class="num">04</span><h3>Sức khỏe cộng đồng</h3><p>Tiêm chích không an toàn và lối sống buông thả làm bùng phát nguy cơ lây truyền HIV/AIDS, viêm gan B, C. Gây áp lực nặng nề lên an sinh xã hội và đe dọa giống nòi tương lai.</p></div>
+      </div>
+      <div class="chain rv" style="--d:5;flex-direction:row;flex-wrap:nowrap;justify-content:center;gap:10px;margin-top:6px">
+        <div class="step" style="padding:9px 18px;font-size:19px;white-space:nowrap">CÁ NHÂN BỊ ẢNH HƯỞNG</div>
+        <div class="arr" style="font-size:22px;color:var(--red);flex:none">→</div>
+        <div class="step" style="padding:9px 18px;font-size:19px;white-space:nowrap">GIA ĐÌNH CHỊU HỆ LỤY</div>
+        <div class="arr" style="font-size:22px;color:var(--red);flex:none">→</div>
+        <div class="step" style="padding:9px 18px;font-size:19px;border-color:var(--red);color:#ffb9bc;white-space:nowrap">CỘNG ĐỒNG GÁNH HẬU QUẢ</div>
+      </div>
+      <p class="rv" style="--d:6;font-size:19px;color:#c0cddf;line-height:1.45;margin-top:2px">Lưu ý: Người gặp vấn đề lệ thuộc chất là <b style="color:var(--white)">bệnh nhân cần được hỗ trợ y tế và điều trị cai nghiện</b>, cần phân biệt rõ với tội phạm buôn bán, tàng trữ ma túy.</p>
+    </div>
+    <div style="flex:.85;display:flex;flex-direction:column;gap:18px;min-height:0">
+      <figure class="imgblock rv" style="--d:2;flex:1;min-height:0">
+        <img src="run-antidrug.jpg" alt="Cuộc chạy bộ vì Ngày Quốc tế Chống lạm dụng Ma túy 26/6" onerror="this.closest('.imgblock').classList.add('noimg');this.remove()">
+        <figcaption>Chạy bộ tuyên truyền ngày 26/6 — Quốc tế Chống lạm dụng Ma túy (GODL-India)</figcaption>
+      </figure>
+      <div class="bigstat rv" style="--d:3;margin-top:0">
+        <div class="st"><b>25.753</b><span>vụ phạm tội về ma túy trên toàn quốc năm 2025 <br>(Bộ Công an)</span></div>
+        <div class="st"><b>~60%</b><span>người dùng ma túy lần đầu ở độ tuổi 15–25 <br>(Cục Cảnh sát phòng chống ma túy, 10/2024)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>Nguồn: Bộ Công an (số liệu 2025); C04 qua Dân Trí 15/10/2024; báo cáo nhóm</span><span>07 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 8 — PHÒNG TRÁNH ============ -->
+<section class="slide" id="slide-8" aria-label="Slide 8">
+  <div class="kicker green rv" style="--d:0">Kỹ năng sống</div>
+  <h1 class="title rv" style="--d:1">CHỦ ĐỘNG PHÒNG TRÁNH — BẢO VỆ TƯƠNG LAI</h1>
+  <div class="split" style="margin-top:16px">
+    <div style="display:flex;flex-direction:column;gap:10px;min-height:0">
+      <div class="card rv" style="--d:1;flex-direction:row;align-items:center"><span class="num">01</span><div><h3>Kiên quyết nói KHÔNG</h3><p>Từ chối dứt khoát ngay từ lần đầu tiên khi bị bạn bè rủ rê, lôi kéo hay thách thức dùng thử chất kích thích.</p></div></div>
+      <div class="card rv" style="--d:2;flex-direction:row;align-items:center"><span class="num">02</span><div><h3>Cảnh giác trước đồ vật lạ</h3><p>Tuyệt đối không nhận, nếm thử kẹo bánh, nước uống, thuốc lá điện tử pod hay gói bột không rõ nguồn gốc từ người lạ.</p></div></div>
+      <div class="card rv" style="--d:3;flex-direction:row;align-items:center"><span class="num">03</span><div><h3>Tránh xa môi trường nguy cơ</h3><p>Chọn bạn tốt để chơi; không tụ tập tại các quán bar, karaoke phức tạp hay nhóm bạn có dấu hiệu sử dụng chất cấm.</p></div></div>
+      <div class="card rv" style="--d:4;flex-direction:row;align-items:center"><span class="num">04</span><div><h3>Tìm kiếm trợ giúp tin cậy</h3><p>Chủ động tâm sự với cha mẹ, thầy cô hoặc liên hệ cơ quan công an khi bị các đối tượng xấu đe dọa, ép buộc.</p></div></div>
+      <div class="card rv" style="--d:5;flex-direction:row;align-items:center"><span class="num">05</span><div><h3>Rèn luyện lối sống tích cực</h3><p>Tích cực tập luyện thể thao, theo đuổi đam mê, trau dồi kỹ năng sống và xây dựng các mối quan hệ bạn bè lành mạnh.</p></div></div>
+      <div class="flow rv" style="--d:6">
+        <div class="step">1. Nhận diện nguy cơ</div><div class="arr">→</div>
+        <div class="step">2. Từ chối dứt khoát</div><div class="arr">→</div>
+        <div class="step">3. Rời nơi nguy hiểm</div><div class="arr">→</div>
+        <div class="step" style="border-color:var(--amber);color:#ffd8a8">4. Báo người tin cậy</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px;min-height:0">
+      <figure class="imgblock rv" style="--d:3;flex:1;min-height:0">
+        <img src="soccer-teens.jpg" alt="Nhóm bạn trẻ chơi bóng đá — lối sống lành mạnh" onerror="this.closest('.imgblock').classList.add('noimg');this.remove()">
+        <figcaption>Hoạt động thể thao — lựa chọn lành mạnh cho tuổi trẻ (LEG95, CC BY-SA 4.0)</figcaption>
+      </figure>
+      <div class="badge-callout green rv" style="--d:4">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <p>“Phòng tránh từ hôm nay để không phải hối tiếc ngày mai.”</p>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>Nguồn: khuyến nghị trong báo cáo nhóm — giáo dục kỹ năng sống học đường</span><span>08 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 9 — KẾT LUẬN ============ -->
+<section class="slide" id="slide-9" aria-label="Slide 9">
+  <div class="kicker rv" style="--d:0">Kết luận</div>
+  <h1 class="title rv" style="--d:1">MA TÚY KHÔNG PHẢI LỐI THOÁT</h1>
+  <div class="s9wrap" style="margin-top:28px">
+    <div class="s9side dark rv" style="--d:2">
+      <img src="heroin-kit.jpg" alt="Bộ dụng cụ sử dụng opioid, ảnh tư liệu" onerror="this.remove()">
+      <div class="ov"></div>
+      <div class="inner">
+        <h3>HẬU QUẢ</h3>
+        <ul>
+          <li>Tổn hại nghiêm trọng sức khỏe thể chất và tinh thần</li>
+          <li>Gia đình gánh áp lực kinh tế, tình cảm, tâm lý</li>
+          <li>Xã hội chịu ảnh hưởng an ninh, y tế, giáo dục, kinh tế</li>
+        </ul>
+      </div>
+    </div>
+    <div class="s9side hope rv" style="--d:3">
+      <img src="students-group.jpg" alt="Nhóm học sinh tươi vui chụp ảnh kỷ niệm" onerror="this.remove()">
+      <div class="ov"></div>
+      <div class="inner">
+        <h3>HY VỌNG</h3>
+        <ul>
+          <li>Chủ động phòng ngừa từ hôm nay</li>
+          <li>Tìm kiếm sự trợ giúp đúng lúc</li>
+          <li>Học tập, thể thao và những mối quan hệ tích cực</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="s9msg rv" style="--d:4">
+    <div class="m1">“NÓI KHÔNG VỚI MA TÚY —<br>BẢO VỆ BẢN THÂN, GIA ĐÌNH VÀ <b>TƯƠNG LAI</b>.”</div>
+    <div class="m2">Phòng, chống ma túy là trách nhiệm của mỗi cá nhân, gia đình và toàn xã hội.</div>
+  </div>
+  <div class="src"><span>Ảnh: bộ dụng cụ sử dụng opioid (M. T. Rader, CC BY-SA 4.0); học sinh chụp ảnh (B. Morin, CC BY-SA 4.0)</span><span>09 / 10</span></div>
+</section>
+
+<!-- ============ SLIDE 10 — KẾT BÀI ============ -->
+<section class="slide s10" id="slide-10" aria-label="Slide 10">
+  <div class="bg"><img src="students-group.jpg" alt="" onerror="this.style.display='none'"></div>
+  <div class="inner">
+    <h1 class="rv" style="--d:1">CẢM ƠN THẦY CÔ VÀ CÁC BẠN<br>ĐÃ LẮNG NGHE!</h1>
+    <p class="sub rv" style="--d:2">“Chung tay xây dựng một môi trường học đường an toàn, lành mạnh, không ma túy.”</p>
+    <div class="team rv" style="--d:3">Nhóm thuyết trình: <b data-cfg="group"></b></div>
+    <div class="ready rv" style="--d:4"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.9-.9L3 21l1.9-4.9A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>Chúng em sẵn sàng lắng nghe câu hỏi</div>
+    <div class="btns rv" style="--d:5">
+      <button class="btn primary" id="btn-restart">↻ Xem lại từ đầu</button>
+      <button class="btn" id="btn-back">← Về slide trước</button>
+    </div>
+  </div>
+  <div class="src"><span>Ảnh: học sinh chụp ảnh nhóm — Basile Morin, CC BY-SA 4.0 (Wikimedia Commons)</span><span>10 / 10</span></div>
+</section>
+
+</main></div>
+
+<!-- HUD -->
+<div id="hud">
+  <button class="navbtn" id="btn-prev" aria-label="Slide trước" title="Slide trước (←)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <div id="counter"><b id="cur">01</b> / 10</div>
+  <button class="navbtn" id="btn-next" aria-label="Slide tiếp theo" title="Slide tiếp (→)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+
+<div id="overview" role="dialog" aria-label="Tổng quan các slide">
+  <h2 style="color:var(--white)">Tổng quan 10 slide — chọn một slide để chuyển tới</h2>
+  <div class="grid" id="ov-grid"></div>
+</div>
+
+<div id="sources" role="dialog" aria-label="Nguồn tham khảo">
+  <div class="box">
+    <h2>Nguồn tham khảo</h2>
+    <h3>A. Từ các báo cáo nhóm cung cấp</h3>
+    <ul>
+      <li>“Báo cáo nghiên cứu toàn diện về tác hại của ma túy” &amp; “Báo cáo phân tích tác hại của ma túy” — tài liệu nhóm biên soạn (trích dẫn nội bộ đến Luật PCMT 2021, MedlinePlus/NIH, UNODC).</li>
+      <li>“Tóm tắt điều hành” — số liệu toàn cầu ~275 triệu người dùng ma túy và 36,3 triệu rối loạn sử dụng (World Drug Report, UNODC 2021).</li>
+    </ul>
+    <h3>B. Đã kiểm chứng trực tiếp (ngoài báo cáo)</h3>
+    <ul>
+      <li>Bộ Công an — “Số liệu công tác đấu tranh phòng, chống tội phạm năm 2025”: 25.753 vụ phạm tội về ma túy toàn quốc. bocongan.gov.vn</li>
+      <li>Cục trưởng C04 (Bộ Công an) qua Dân Trí 15/10/2024: ~60% người sử dụng ma túy lần đầu ở độ tuổi 15–25. dantri.com.vn</li>
+      <li>Video slide 4: VTV24 — “Ma túy tổng hợp hủy hoại não bộ…” (kênh VTV24 chính thức trên YouTube).</li>
+    </ul>
+    <h3>C. Hình ảnh (Wikimedia Commons)</h3>
+    <ul>
+      <li>Tang vật thu giữ &amp; fentanyl 2 mg: U.S. CBP, U.S. DEA — phạm vi công cộng.</li>
+      <li>Bộ dụng cụ sử dụng opioid: Matthew T Rader — CC BY-SA 4.0 (giấy phép tự do).</li>
+      <li>Ảnh minh họa người mẹ lo lắng: Kinitrupti — CC BY-SA 4.0 (ảnh minh họa, không phải sự kiện thật).</li>
+      <li>Chạy bộ chống ma túy 26/6: Ministry of Health &amp; Family Welfare (Ấn Độ) — GODL-India.</li>
+      <li>Bóng đá tuổi teen: LEG95 — CC BY-SA 4.0. Ảnh học sinh: Basile Morin — CC BY-SA 4.0.</li>
+    </ul>
+    <div class="closeline"><button class="btn" id="btn-close-sources">Đóng</button></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ✏️ CONFIG — CHỈNH SỬA THÔNG TIN NHÓM & VIDEO TẠI ĐÂY
+   ============================================================ */
+const CONFIG = {
+  school:  "THPT Tam Đảo",          // ← tên trường
+  cls:     "Lớp 10A10",                    // ← lớp
+  group:   "Nhóm 2",                      // ← tên nhóm thuyết trình
+  teacher: "Lưu Thị Hương",               // ← giáo viên hướng dẫn
+  members: "Thành viên 1 · Thành viên 2 · Thành viên 3 · Thành viên 4",
+
+  /* VIDEO GIỚI THIỆU THÀNH VIÊN (slide 2) */
+  introVideo: "1791214858513_8331766655972374779_8331766655972374779.mp4",
+  introTitle: "Video giới thiệu các thành viên nhóm",
+  introPoster: "poster-thanh-vien.jpg",
+
+  /* VIDEO THỰC TẾ (slide 4) — phát mượt mà trực tiếp trên slide, hỗ trợ toàn màn hình */
+  factVideo: "vtv24-loan-than.mp4",
+  factYoutube: "https://www.youtube.com/watch?v=wxyBNucjgsg",
+  factTitle: "VTV24 · Người trẻ loạn thần vì ma túy: Chơi một lần là khó có thể quay lại",
+  factPoster: "video-vtv24.jpg",
+};
+
+/* ---------- điền config vào chỗ trống ---------- */
+document.querySelectorAll("[data-cfg]").forEach(el => {
+  el.textContent = CONFIG[el.dataset.cfg] || "";
+});
+
+/* ============================================================
+   DECK ENGINE — chuyển slide, bàn phím, toàn màn hình, video
+   ============================================================ */
+const stage = document.getElementById("stage");
+const slides = [...document.querySelectorAll(".slide")];
+const N = slides.length;
+let cur = 0;
+
+/* --- scale 16:9 trên desktop; chế độ cuộn trên màn hẹp --- */
+function fit(){
+  const w = innerWidth, h = innerHeight;
+  const responsive = w < 860 || w / h < 1.05;
+  document.body.classList.toggle("responsive", responsive);
+  if(!responsive){
+    const s = Math.min(w / 1920, h / 1080);
+    stage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
+  } else {
+    stage.style.transform = "";
+  }
+}
+addEventListener("resize", fit); fit();
+
+/* --- dừng media khi rời slide --- */
+function stopMedia(slide){
+  slide.querySelectorAll("iframe").forEach(f => f.remove());
+  slide.querySelectorAll("video").forEach(v => { try{v.pause();}catch(e){} });
+  slide.querySelectorAll(".videobox").forEach(box => {
+    const facade = box.querySelector(".facade"); if (facade) facade.style.display = "";
+  });
+}
+
+function go(i){
+  i = Math.max(0, Math.min(N - 1, i));
+  if (i !== cur) stopMedia(slides[cur]);
+  slides.forEach((s, k) => {
+    s.classList.toggle("active", k === i);
+    s.classList.toggle("prev", k < i);
+  });
+  cur = i; render(i);
+}
+function render(i){
+  document.getElementById("cur").textContent = String(i + 1).padStart(2, "0");
+  document.getElementById("progress").style.width = ((i + 1) / N * 100) + "%";
+}
+
+/* ---------- VIDEO BOX (facade click-to-play, không tự phát) ---------- */
+function ytId(url){
+  const m = (url || "").match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}
+function buildVideo(slot, { url, title, author, poster, placeholderText, youtubeUrl }){
+  const id = ytId(url) || ytId(youtubeUrl);
+  slot.innerHTML = "";
+  const box = document.createElement("div");
+  box.className = "videobox rv"; box.style.setProperty("--d", 3); box.style.flex = "1"; box.style.minHeight = "0";
+  slot.appendChild(box);
+
+  if (!url && !youtubeUrl){
+    box.innerHTML =
+      '<div class="vp"><div class="placeholder">' +
+      '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="14" height="14" rx="3"/><path d="m16 10 6-3v10l-6-3"/></svg>' +
+      "<h4>Chưa có video tại đây</h4><p>" + placeholderText + "</p></div></div>";
+    return;
+  }
+
+  const facade = document.createElement("div");
+  facade.className = "facade vp";
+  facade.style.position = "absolute"; facade.style.inset = "0";
+  if (poster){
+    const img = document.createElement("img");
+    img.className = "poster"; img.src = poster; img.alt = "";
+    img.onerror = () => img.remove();
+    facade.appendChild(img);
+  }
+  const btn = document.createElement("button");
+  btn.className = "playbtn"; btn.setAttribute("aria-label", "Phát video: " + title);
+  btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+
+  function playVideo(){
+    if (url && (url.endsWith(".mp4") || url.endsWith(".webm") || !url.startsWith("http"))){
+      let v = box.querySelector("video");
+      if (!v){
+        v = document.createElement("video");
+        v.src = url;
+        v.controls = true;
+        v.playsInline = true;
+        v.autoplay = true;
+        v.preload = "auto";
+        v.style.position = "absolute";
+        v.style.inset = "0";
+        v.style.width = "100%";
+        v.style.height = "100%";
+        v.style.objectFit = "contain";
+        v.style.background = "#000";
+        v.addEventListener("error", () => {
+          if (!v._retried && v.src) {
+            v._retried = true;
+            if (v.src.includes("1791214858513")) v.src = "video-thanh-vien.mp4";
+            else if (v.src.includes("vtv24")) v.src = "vtv24-loan-than.mp4";
+            v.load();
+          }
+        });
+        box.insertBefore(v, facade);
+      }
+      facade.style.display = "none";
+      v.play().catch(()=>{});
+      return v;
+    } else if (id){
+      if (location.protocol === "file:") {
+        window.open("https://www.youtube.com/watch?v=" + id, "_blank");
+      } else {
+        const f = document.createElement("iframe");
+        f.src = "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0&modestbranding=1";
+        f.title = title; f.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+        f.setAttribute("allowfullscreen", "");
+        f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+        box.insertBefore(f, facade); facade.style.display = "none";
+      }
+    }
+  }
+
+  btn.addEventListener("click", playVideo);
+  facade.appendChild(btn);
+  box.appendChild(facade);
+
+  const label = document.createElement("div");
+  label.className = "vlabel";
+  const ytLink = youtubeUrl || (id ? "https://www.youtube.com/watch?v=" + id : "");
+  const authorTag = author ? ' <span style="font-size:16px;color:var(--muted);font-weight:400">(' + author + ')</span>' : '';
+  label.innerHTML = '<div class="t">' + title + authorTag + '</div>' +
+    '<div class="links">' +
+    '<button class="btn btn-fs" style="padding:8px 16px;font-size:17px;display:inline-flex;align-items:center;gap:8px" title="Toàn màn hình video"><svg style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>Toàn màn hình</button>' +
+    (ytLink ? '<a class="btn primary" style="padding:8px 16px;font-size:17px" target="_blank" rel="noopener" href="' + ytLink + '">Mở YouTube ↗</a>' : "") +
+    "</div>";
+  box.appendChild(label);
+
+  const fsBtn = label.querySelector(".btn-fs");
+  if (fsBtn) {
+    fsBtn.addEventListener("click", () => {
+      let v = box.querySelector("video");
+      if (!v) v = playVideo();
+      if (v){
+        if (v.requestFullscreen) v.requestFullscreen();
+        else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
+      }
+    });
+  }
+}
+
+buildVideo(document.getElementById("video-intro-slot"), {
+  url: CONFIG.introVideo,
+  title: CONFIG.introTitle || "Video giới thiệu các thành viên nhóm",
+  author: "Video thành viên",
+  poster: CONFIG.introPoster || "poster-thanh-vien.jpg",
+  placeholderText: "Chưa có video giới thiệu thành viên."
+});
+buildVideo(document.getElementById("video-fact-slot"), {
+  url: CONFIG.factVideo,
+  youtubeUrl: CONFIG.factYoutube,
+  title: CONFIG.factTitle,
+  author: "Nguồn: VTV24",
+  poster: CONFIG.factPoster,
+  placeholderText: "Thay URL video tại CONFIG.factVideo trong file index.html."
+});
+
+/* ---------- điều khiển ---------- */
+const next = () => go(cur + 1), prev = () => go(cur - 1);
+document.getElementById("btn-next").addEventListener("click", next);
+document.getElementById("btn-prev").addEventListener("click", prev);
+document.getElementById("btn-restart").addEventListener("click", () => go(0));
+document.getElementById("btn-back").addEventListener("click", prev);
+
+addEventListener("keydown", e => {
+  const t = e.target;
+  if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+  switch (e.key){
+    case "ArrowRight": case "PageDown": next(); e.preventDefault(); break;
+    case "ArrowLeft": case "PageUp": prev(); e.preventDefault(); break;
+    case " ": if (t.tagName !== "BUTTON" && t.tagName !== "A"){ next(); e.preventDefault(); } break;
+    case "Home": go(0); e.preventDefault(); break;
+    case "End": go(N - 1); e.preventDefault(); break;
+    case "f": case "F": toggleFS(); break;
+    case "o": case "O": toggleOverview(); break;
+    case "Escape": closeOverlays(); break;
+  }
+});
+
+/* fullscreen */
+function toggleFS(){
+  if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  else document.documentElement.requestFullscreen().catch(()=>{});
+}
+
+/* swipe */
+let tx = null;
+addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+addEventListener("touchend", e => {
+  if (tx == null) return;
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 60) (dx < 0 ? next : prev)();
+  tx = null;
+}, { passive: true });
+
+/* overview */
+const ov = document.getElementById("overview");
+const ovGrid = document.getElementById("ov-grid");
+slides.forEach((s, i) => {
+  const b = document.createElement("button");
+  b.className = "cell";
+  const t = s.querySelector("h1.title, h1");
+  b.innerHTML = '<span class="n">' + String(i + 1).padStart(2, "0") + "</span><div class='t'>" +
+    (t ? t.textContent.trim().split("\n")[0].slice(0, 70) : "Slide " + (i + 1)) + "</div>";
+  b.addEventListener("click", () => { closeOverlays(); go(i); });
+  ovGrid.appendChild(b);
+});
+function toggleOverview(){ ov.classList.toggle("open"); }
+function closeOverlays(){ ov.classList.remove("open"); const sc = document.getElementById("sources"); if (sc) sc.classList.remove("open"); }
+const btnGrid = document.getElementById("btn-grid"); if (btnGrid) btnGrid.addEventListener("click", toggleOverview);
+const btnSrcs = document.getElementById("btn-srcs"); if (btnSrcs) btnSrcs.addEventListener("click", () => document.getElementById("sources").classList.add("open"));
+const btnCloseSources = document.getElementById("btn-close-sources"); if (btnCloseSources) btnCloseSources.addEventListener("click", closeOverlays);
+ov.addEventListener("click", e => { if (e.target === ov) closeOverlays(); });
+const scBox = document.getElementById("sources"); if (scBox) scBox.addEventListener("click", e => { if (e.target.id === "sources") closeOverlays(); });
+
+/* khởi tạo */
+go(0);
+</script>
+</body>
+</html>
